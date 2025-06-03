@@ -1,15 +1,13 @@
 package forms;
 
-import static enums.ItemType.CD;
-import java.util.LinkedList;
 import javax.swing.table.DefaultTableModel;
 import model.Item;
 
 import forms.MenuScreen;
-import model.Book;
-import model.CD;
-import model.Comics;
-import model.Magazine;
+import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import utils.Utils;
 
 public class StockScreen extends javax.swing.JDialog {
 
@@ -20,6 +18,11 @@ public class StockScreen extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER); // Centraliza horizontalmente
+
+        tableRegistereds.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
     }
 
     /**
@@ -33,34 +36,39 @@ public class StockScreen extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tableRegistereds = new javax.swing.JTable();
-        jTextField1 = new javax.swing.JTextField();
+        fieldSearch = new javax.swing.JTextField();
         buttonSearch = new javax.swing.JButton();
         comboFilter = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        buttonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ESTOQUE DE ITEMS");
-        setMaximumSize(new java.awt.Dimension(750, 485));
-        setMinimumSize(new java.awt.Dimension(750, 485));
+        setMaximumSize(new java.awt.Dimension(1250, 625));
+        setMinimumSize(new java.awt.Dimension(1250, 625));
+        setModal(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(1250, 625));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
 
+        tableRegistereds.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         tableRegistereds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "N°", "Título", "Editora", "Autor", "Tipo"
+                "ID", "Título", "Editora", "Gênero", "Autor/Manchete", "Ano", "Tipo", "P. Fornecedor", "M. Lucro", "P. de Venda", "Lucro p/ unidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -71,23 +79,33 @@ public class StockScreen extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        tableRegistereds.setRowHeight(30);
+        tableRegistereds.setSelectionBackground(new java.awt.Color(0, 153, 204));
+        tableRegistereds.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableRegistereds.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableRegistereds.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableRegistereds);
         if (tableRegistereds.getColumnModel().getColumnCount() > 0) {
-            tableRegistereds.getColumnModel().getColumn(0).setMinWidth(40);
-            tableRegistereds.getColumnModel().getColumn(0).setPreferredWidth(40);
-            tableRegistereds.getColumnModel().getColumn(0).setMaxWidth(40);
-            tableRegistereds.getColumnModel().getColumn(1).setMinWidth(300);
-            tableRegistereds.getColumnModel().getColumn(1).setPreferredWidth(300);
-            tableRegistereds.getColumnModel().getColumn(1).setMaxWidth(300);
+            tableRegistereds.getColumnModel().getColumn(0).setMinWidth(60);
+            tableRegistereds.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tableRegistereds.getColumnModel().getColumn(0).setMaxWidth(60);
+            tableRegistereds.getColumnModel().getColumn(1).setPreferredWidth(200);
             tableRegistereds.getColumnModel().getColumn(2).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(3).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(3).setPreferredWidth(90);
             tableRegistereds.getColumnModel().getColumn(4).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tableRegistereds.getColumnModel().getColumn(5).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(6).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(7).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(8).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(9).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(10).setResizable(false);
         }
 
-        jTextField1.setMaximumSize(new java.awt.Dimension(350, 35));
-        jTextField1.setMinimumSize(new java.awt.Dimension(350, 35));
-        jTextField1.setPreferredSize(new java.awt.Dimension(350, 35));
+        fieldSearch.setMaximumSize(new java.awt.Dimension(350, 35));
+        fieldSearch.setMinimumSize(new java.awt.Dimension(350, 35));
+        fieldSearch.setPreferredSize(new java.awt.Dimension(350, 35));
 
         buttonSearch.setBackground(new java.awt.Color(0, 153, 204));
         buttonSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -100,11 +118,27 @@ public class StockScreen extends javax.swing.JDialog {
             }
         });
 
-        comboFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Título", "Editora", "Autor" }));
+        comboFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TITULO", "EDITORA", "AUTOR" }));
         comboFilter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        comboFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFilterActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("FILTRO:");
+
+        buttonDelete.setBackground(new java.awt.Color(255, 51, 51));
+        buttonDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonDelete.setForeground(new java.awt.Color(255, 255, 255));
+        buttonDelete.setText("DELETAR");
+        buttonDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,10 +152,12 @@ public class StockScreen extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSearch)
-                        .addGap(0, 163, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDelete)
+                        .addGap(0, 559, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -132,11 +168,12 @@ public class StockScreen extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(comboFilter, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -144,26 +181,38 @@ public class StockScreen extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
-        // TODO add your handling code here:
+        Utils.searchItemsOnTable(tableRegistereds, comboFilter.getSelectedItem().toString(), fieldSearch.getText().trim().toUpperCase());
     }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        DefaultTableModel tableModel = (DefaultTableModel) tableRegistereds.getModel();
-
-        int cont = tableModel.getRowCount() + 1;
-        for (Item item : MenuScreen.getRegisteredItems()) {
-
-            Object[] rowData = new Object[]{
-                cont++,
-                item.getTitle(),
-                item.getPublisher(),
-                item.getContributor(),
-                item.getItemType()
-            };
-
-            tableModel.addRow(rowData);
-        }
+        utils.Utils.loadItemsOnTable(tableRegistereds);
     }//GEN-LAST:event_formWindowOpened
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+        int selectedRow = tableRegistereds.getSelectedRow();
+
+        int choice = JOptionPane.showConfirmDialog(
+                null,
+                String.format("Deseja prosseguir com o apagamento de %s ?", tableRegistereds.getValueAt(selectedRow, 1).toString()),
+                "Confirmação",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+            final int id = Integer.parseInt(tableRegistereds.getValueAt(selectedRow, 0).toString());
+            MenuScreen.getRegisteredItems().removeIf(item -> item.getId() == id);
+        } else {
+            return;
+        }
+
+        utils.Utils.loadItemsOnTable(tableRegistereds);
+
+    }//GEN-LAST:event_buttonDeleteActionPerformed
+
+    private void comboFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFilterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,11 +257,12 @@ public class StockScreen extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JComboBox<String> comboFilter;
+    private javax.swing.JTextField fieldSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tableRegistereds;
     // End of variables declaration//GEN-END:variables
 }

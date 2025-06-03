@@ -31,7 +31,7 @@ public class CD extends Item {
     }
 
     public void setContributor(String artist) {
-        this.artist = artist;
+        this.artist = artist.trim().toUpperCase();
     }
 
     //

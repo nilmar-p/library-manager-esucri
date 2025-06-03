@@ -1,8 +1,12 @@
 package model;
 
 import enums.ItemType;
+import forms.MenuScreen;
+import java.util.concurrent.ThreadLocalRandom;
 
 abstract public class Item {
+
+    private int id;
 
     private String title;
     private String publisher;
@@ -17,6 +21,10 @@ abstract public class Item {
     private double profit;
 
     //getters and setter
+    public int getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -52,6 +60,22 @@ abstract public class Item {
     }
 
     //
+    private void setId() {
+        int newId;
+        boolean idExists;
+        do {
+            newId = ThreadLocalRandom.current().nextInt(1000, 9999);
+            idExists = false;
+            for (Item item : MenuScreen.getRegisteredItems()) {
+                if (item.getId() == newId) {
+                    idExists = true;
+                    break;
+                }
+            }
+        } while (idExists);
+        this.id = newId;
+    }
+
     public void setTitle(String title) {
         this.title = title.trim().isEmpty() ? "SEM TÍTULO" : title.trim().toUpperCase();
     }
@@ -74,8 +98,27 @@ abstract public class Item {
         setProfit();
     }
 
-    public void setProfitMargin(double profitMargin) {
-        this.profitMargin = profitMargin <= 0 ? 0.10 : profitMargin; //10% padrao de lucro
+    public void setProfitMargin(ItemType type) {
+        switch (type) {
+            case REVISTA:
+                this.profitMargin = ProfitRules.getMagazineMargin();
+                break;
+            case LIVRO:
+                this.profitMargin = ProfitRules.getBookMargin();
+                break;
+            case QUADRINHOS:
+                this.profitMargin = ProfitRules.getComicsMargin();
+                break;
+            case CD:
+                this.profitMargin = ProfitRules.getCdMargin();
+                break;
+            case NONE:
+                this.profitMargin = ProfitRules.getNoneMargin();
+                break;
+            default:
+                throw new AssertionError();
+        }
+
         setSalePrice();
         setProfit();
     }
@@ -95,7 +138,10 @@ abstract public class Item {
         this.setPublicationYear(0);
         this.setItemType(ItemType.NONE);
         this.setSupplierPrice(0);
-        this.setProfitMargin(0);
+        this.setProfitMargin(ItemType.NONE);
+
+        this.setId();
+
         this.setSalePrice();
         this.setProfit();
     }
@@ -106,12 +152,14 @@ abstract public class Item {
         this.setPublicationYear(publicationYear);
         this.setItemType(type);
         this.setSupplierPrice(supplierPrice);
-        this.setProfitMargin(0);
+        this.setProfitMargin(type);
+
+        this.setId();
+
         this.setSalePrice();
         this.setProfit();
     }
 
-    //methods
     //toString
     @Override
     public String toString() {

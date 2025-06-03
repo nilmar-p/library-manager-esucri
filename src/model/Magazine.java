@@ -22,7 +22,7 @@ public final class Magazine extends Item {    //(revista não é literatura)
     }
 
     public void setContributor(String coverFeature) {
-        this.coverFeature = coverFeature;
+        this.coverFeature = coverFeature.trim().toUpperCase();
     }
 
 }

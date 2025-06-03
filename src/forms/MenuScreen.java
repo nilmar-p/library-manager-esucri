@@ -10,6 +10,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Book;
 import model.CD;
+import model.Comics;
 import model.Item;
 import model.Magazine;
 import model.None;
@@ -340,12 +341,23 @@ public class MenuScreen extends javax.swing.JDialog {
         }
 
         switch (comboItemType.getSelectedItem()) {
-            case ItemType.LIVRO, ItemType.QUADRINHOS ->
+            case ItemType.LIVRO ->
                 unregisteredItem = new Book(
                         fieldTitle.getText(),
                         fieldPublisher.getText(),
                         (int) spinnerPublicationYear.getValue(),
                         (ItemType) comboItemType.getSelectedItem(),
+                        ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
+                        (int) spinnerNumberOfPages.getValue(),
+                        (LiteraryGenre) comboGenre.getSelectedItem(),
+                        fieldContributor.getText()
+                );
+            case QUADRINHOS ->
+                unregisteredItem = new Comics(
+                        fieldTitle.getText(),
+                        fieldPublisher.getText(),
+                        (int) spinnerPublicationYear.getValue(),
+                        ItemType.QUADRINHOS,
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
                         (int) spinnerNumberOfPages.getValue(),
                         (LiteraryGenre) comboGenre.getSelectedItem(),
@@ -361,7 +373,6 @@ public class MenuScreen extends javax.swing.JDialog {
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
                         fieldContributor.getText()
                 );
-
             case ItemType.REVISTA ->
                 unregisteredItem = new Magazine(fieldTitle.getText(),
                         fieldPublisher.getText(),
@@ -371,7 +382,7 @@ public class MenuScreen extends javax.swing.JDialog {
                         fieldContributor.getText()
                 );
             default ->
-                unregisteredItem = new None();
+                unregisteredItem = new None(fieldTitle.getText(), ((Number) spinnerSupplierPrice.getValue()).doubleValue());
         }
 
         try {
@@ -460,7 +471,7 @@ public class MenuScreen extends javax.swing.JDialog {
     private void buttonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsActionPerformed
         SettingsScreen settingsScreen = new SettingsScreen(MenuScreen.this, true);
 
-        settingsScreen.setVisible(true);        
+        settingsScreen.setVisible(true);
     }//GEN-LAST:event_buttonSettingsActionPerformed
 
     private void fieldTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTitleActionPerformed

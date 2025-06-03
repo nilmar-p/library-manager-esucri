@@ -28,7 +28,7 @@ public class Book extends Literature {
     }
 
     public void setContributor(String author) {
-        this.author = author;
+        this.author = author.trim().toUpperCase();
     }
 
     // toString

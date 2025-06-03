@@ -24,7 +24,7 @@ public class Comics extends Literature {
     }
 
     public void setContributor(String illustrator) {
-        this.illustrator = illustrator;
+        this.illustrator = illustrator.trim().toUpperCase();
     }
 
     // toString
