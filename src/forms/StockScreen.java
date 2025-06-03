@@ -91,11 +91,13 @@ public class StockScreen extends javax.swing.JDialog {
             tableRegistereds.getColumnModel().getColumn(0).setMaxWidth(60);
             tableRegistereds.getColumnModel().getColumn(1).setPreferredWidth(200);
             tableRegistereds.getColumnModel().getColumn(2).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(2).setPreferredWidth(50);
             tableRegistereds.getColumnModel().getColumn(3).setResizable(false);
-            tableRegistereds.getColumnModel().getColumn(3).setPreferredWidth(90);
+            tableRegistereds.getColumnModel().getColumn(3).setPreferredWidth(50);
             tableRegistereds.getColumnModel().getColumn(4).setResizable(false);
-            tableRegistereds.getColumnModel().getColumn(4).setPreferredWidth(120);
+            tableRegistereds.getColumnModel().getColumn(4).setPreferredWidth(150);
             tableRegistereds.getColumnModel().getColumn(5).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(5).setPreferredWidth(40);
             tableRegistereds.getColumnModel().getColumn(6).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(7).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(8).setResizable(false);
@@ -190,6 +192,11 @@ public class StockScreen extends javax.swing.JDialog {
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
         int selectedRow = tableRegistereds.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Você deve selecionar um item da lista!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         int choice = JOptionPane.showConfirmDialog(
                 null,

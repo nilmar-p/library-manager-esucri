@@ -423,6 +423,8 @@ public class MenuScreen extends javax.swing.JDialog {
 
         ItemType selectedType = (ItemType) comboItemType.getSelectedItem();
 
+        boolean isNone = false;
+
         switch (selectedType) {
             case LIVRO, QUADRINHOS -> {
                 cbm = new DefaultComboBoxModel(LiteraryGenre.values());
@@ -446,7 +448,7 @@ public class MenuScreen extends javax.swing.JDialog {
                 showPages = false;
             }
             case REVISTA -> {
-                labelContributor.setText("Manch. :");
+                labelContributor.setText("Manch.:");
 
                 showGenre = false;
                 showPages = true;
@@ -456,6 +458,7 @@ public class MenuScreen extends javax.swing.JDialog {
                 showGenre = false;
                 showPages = false;
 
+                isNone = true;
             }
         }
 
@@ -466,6 +469,10 @@ public class MenuScreen extends javax.swing.JDialog {
 
         labelNumberOfPages.setVisible(showPages);
         spinnerNumberOfPages.setVisible(showPages);
+
+        fieldPublisher.setEnabled(!isNone);
+        fieldContributor.setEnabled(!isNone);
+        spinnerPublicationYear.setEnabled(!isNone);
     }//GEN-LAST:event_comboItemTypeActionPerformed
 
     private void buttonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsActionPerformed
