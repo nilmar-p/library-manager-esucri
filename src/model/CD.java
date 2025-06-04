@@ -7,6 +7,7 @@ public class CD extends Item {
 
     private MusicalGenre genre;
     private String artist;
+    private int numberOfTracks;
 
     //constructors
     public CD() {
@@ -14,10 +15,11 @@ public class CD extends Item {
         this.setGenre(MusicalGenre.NONE);
     }
 
-    public CD(MusicalGenre genre, String title, String publisher, int publicationYear, ItemType type, double supplierPrice, String artist) {
+    public CD(MusicalGenre genre, String title, String publisher, int publicationYear, ItemType type, double supplierPrice, String artist, int numberOfTracks) {
         super(title, publisher, publicationYear, type, supplierPrice);
         this.setGenre(genre);
         this.setContributor(artist);
+        this.setNumberOfTracks(numberOfTracks);
     }
 
     //getters and setters
@@ -30,27 +32,27 @@ public class CD extends Item {
         return artist;
     }
 
+    public int getNumberOfTracks() {
+        return numberOfTracks;
+    }
+
+    //
     public void setContributor(String artist) {
         this.artist = artist.trim().toUpperCase();
     }
 
-    //
     public void setGenre(MusicalGenre genre) {
         this.genre = genre;
     }
 
-    // toString
-    @Override
-    public String toString() {
-        return "Título: " + super.getTitle()
-                + "\nEditora: " + super.getPublisher()
-                + "\nGênero Musical: " + this.getGenre()
-                + "\nData de publicação: " + super.getPublicationDate()
-                + "\nTipo: " + super.getItemType()
-                + "\nPreço do fornecedor: R$ " + String.format("%.2f", super.getSupplierPrice())
-                + "\nPreço de venda: R$ " + String.format("%.2f", super.getSalePrice())
-                + "\nLucro total: R$ " + String.format("%.2f", super.getProfit())
-                + "\nMargem: " + String.format("%.1f", super.getProfitMargin() * 100) + "%";
+    public void setNumberOfTracks(int numberOfTracks) {
+        this.numberOfTracks = numberOfTracks;
     }
 
+    //toString
+    @Override
+    public String toString() {
+        return super.toString() + "\n"
+                + "Nome do artista: " + artist;
+    }
 }

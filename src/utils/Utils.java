@@ -43,6 +43,7 @@ public class Utils {
                     book.getTitle(),
                     book.getPublisher(),
                     book.getGenre(),
+                    book.getNumberOfPages(),
                     book.getContributor(),
                     book.getPublicationDate(),
                     book.getItemType(),
@@ -58,6 +59,7 @@ public class Utils {
                     magazine.getTitle(),
                     magazine.getPublisher(),
                     magazine.getItemType(),
+                    magazine.getNumberOfPages(),
                     magazine.getContributor(),
                     magazine.getPublicationDate(),
                     magazine.getItemType(),
@@ -73,6 +75,7 @@ public class Utils {
                     comics.getTitle(),
                     comics.getPublisher(),
                     comics.getGenre(),
+                    comics.getNumberOfPages(),
                     comics.getContributor(),
                     comics.getPublicationDate(),
                     comics.getItemType(),
@@ -88,6 +91,7 @@ public class Utils {
                     cd.getTitle(),
                     cd.getPublisher(),
                     cd.getGenre(),
+                    cd.getNumberOfTracks(),
                     cd.getContributor(),
                     cd.getPublicationDate(),
                     cd.getItemType(),
@@ -101,6 +105,7 @@ public class Utils {
                 return new Object[]{
                     item.getId(),
                     item.getTitle(),
+                    "NENHUM",
                     "NENHUM",
                     "NENHUM",
                     "NENHUM",
@@ -120,7 +125,6 @@ public class Utils {
         tableModel.setRowCount(0);
 
         for (Item item : MenuScreen.getRegisteredItems()) {
-
             tableModel.addRow(createObjectToTable(item));
         }
     }
@@ -138,67 +142,31 @@ public class Utils {
         switch (filter) {
             case "TITULO" -> {
                 for (Item item : MenuScreen.getRegisteredItems()) {
-
                     if (item.getTitle().startsWith(search)) {
-                        Object[] rowData = new Object[]{
-                            item.getId(),
-                            item.getTitle(),
-                            item.getPublisher(),
-                            item.getContributor(),
-                            item.getItemType(),
-                            String.format("R$ %.2f", item.getSupplierPrice()),
-                            item.getProfitMargin() * 100 + "%",
-                            String.format("R$ %.2f", item.getSalePrice()),
-                            String.format("R$ %.2f", item.getProfit())
-                        };
-
-                        tableModel.addRow(rowData);
+                        tableModel.addRow(createObjectToTable(item));
                     }
                 }
             }
+
             case "EDITORA" -> {
                 for (Item item : MenuScreen.getRegisteredItems()) {
-
                     if (item.getPublisher().startsWith(search)) {
-                        Object[] rowData = new Object[]{
-                            item.getId(),
-                            item.getTitle(),
-                            item.getPublisher(),
-                            item.getContributor(),
-                            item.getItemType(),
-                            String.format("R$ %.2f", item.getSupplierPrice()),
-                            item.getProfitMargin() * 100 + "%",
-                            String.format("R$ %.2f", item.getSalePrice()),
-                            String.format("R$ %.2f", item.getProfit())
-                        };
-
-                        tableModel.addRow(rowData);
+                        tableModel.addRow(createObjectToTable(item));
                     }
                 }
             }
+
             case "AUTOR" -> {
                 for (Item item : MenuScreen.getRegisteredItems()) {
-
                     if (item.getContributor().startsWith(search)) {
-                        Object[] rowData = new Object[]{
-                            item.getId(),
-                            item.getTitle(),
-                            item.getPublisher(),
-                            item.getContributor(),
-                            item.getItemType(),
-                            String.format("R$ %.2f", item.getSupplierPrice()),
-                            item.getProfitMargin() * 100 + "%",
-                            String.format("R$ %.2f", item.getSalePrice()),
-                            String.format("R$ %.2f", item.getProfit())
-                        };
-
-                        tableModel.addRow(rowData);
+                        tableModel.addRow(createObjectToTable(item));
                     }
                 }
             }
 
-            default ->
+            default -> {
                 JOptionPane.showMessageDialog(null, "ERRO NA PESQUISA");
+            }
         }
 
     }

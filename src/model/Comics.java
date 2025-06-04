@@ -14,7 +14,7 @@ public class Comics extends Literature {
 
     public Comics(String title, String publisher, int publicationYear, ItemType type, double supplierPrice, int numberOfPages, LiteraryGenre genre, String illustrator) {
         super(title, publisher, publicationYear, type, supplierPrice, numberOfPages, genre);
-        this.illustrator = illustrator;
+        this.setContributor(illustrator);
     }
 
     //getters setters
@@ -27,18 +27,10 @@ public class Comics extends Literature {
         this.illustrator = illustrator.trim().toUpperCase();
     }
 
-    // toString
+    //toString
     @Override
     public String toString() {
-        return "Título: " + super.getTitle()
-                + "\nEditora: " + super.getPublisher()
-                + "\nGênero Literário: " + this.getGenre()
-                + "\nNúmero de páginas: " + this.getNumberOfPages()
-                + "\nData de publicação: " + super.getPublicationDate()
-                + "\nTipo: " + super.getItemType()
-                + "\nPreço do fornecedor: R$ " + String.format("%.2f", super.getSupplierPrice())
-                + "\nPreço de venda: R$ " + String.format("%.2f", super.getSalePrice())
-                + "\nLucro total: R$ " + String.format("%.2f", super.getProfit())
-                + "\nMargem: " + String.format("%.1f", super.getProfitMargin() * 100) + "%";
+        return super.toString() + "\n"
+                + "Nome do Ilustrador: " + illustrator;
     }
 }

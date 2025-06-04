@@ -163,10 +163,16 @@ abstract public class Item {
     //toString
     @Override
     public String toString() {
-        return "Título: " + title
-                + "\nEditora: " + publisher
-                + "\nData de publicação: " + publicationYear
-                + "\nTipo: " + type
-                + "\nPreço do fornecedor: R$ " + String.format("%.2f", supplierPrice);
+        return "=-= Item =-=:\n"
+                + "  ID: " + id + "\n"
+                + "  Título: " + title + "\n"
+                + "  Editora: " + publisher + "\n"
+                + "  Ano de Publicação: " + publicationYear + "\n"
+                + "  Tipo: " + type + "\n"
+                + "  Preço do Fornecedor: R$ " + supplierPrice + "\n"
+                + "  Margem de Lucro: " + profitMargin + "%\n"
+                + "  Preço de Venda: R$ " + salePrice + "\n"
+                + "  Lucro: R$ " + profit;
     }
+
 }

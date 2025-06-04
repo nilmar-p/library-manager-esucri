@@ -20,9 +20,7 @@ import utils.Utils;
 public class MenuScreen extends javax.swing.JDialog {
 
     private static LinkedList<Item> registeredItems = new LinkedList<>();
-
-    private boolean showGenre = false;
-    private boolean showPages = true;
+    private boolean isMagazine;
 
     //getters and setters
     public static LinkedList<Item> getRegisteredItems() {
@@ -55,12 +53,12 @@ public class MenuScreen extends javax.swing.JDialog {
         labelPublisher = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        labelNumberOfPages = new javax.swing.JLabel();
+        labelNumberOfComponents = new javax.swing.JLabel();
         spinnerSupplierPrice = new javax.swing.JSpinner();
-        jLabel8 = new javax.swing.JLabel();
+        labelSupplierPrice = new javax.swing.JLabel();
         spinnerPublicationYear = new javax.swing.JSpinner();
-        jLabel9 = new javax.swing.JLabel();
-        spinnerNumberOfPages = new javax.swing.JSpinner();
+        labelPublicationYear = new javax.swing.JLabel();
+        spinnerNumberOfComponents = new javax.swing.JSpinner();
         comboItemType = new javax.swing.JComboBox<>();
         buttonItemsInStock = new javax.swing.JButton();
         buttonRegisterItem = new javax.swing.JButton();
@@ -69,6 +67,10 @@ public class MenuScreen extends javax.swing.JDialog {
         labelContributor = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        menuItemStock = new javax.swing.JMenuItem();
+        menuItemSettings = new javax.swing.JMenuItem();
 
         jPanel2.setBackground(new java.awt.Color(0, 153, 204));
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -94,9 +96,7 @@ public class MenuScreen extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CADASTRAR ITEM");
-        setMaximumSize(new java.awt.Dimension(500, 550));
         setMinimumSize(new java.awt.Dimension(500, 550));
-        setPreferredSize(new java.awt.Dimension(500, 550));
         setResizable(false);
         setSize(new java.awt.Dimension(500, 550));
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -141,26 +141,26 @@ public class MenuScreen extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelNumberOfPages.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        labelNumberOfPages.setText("Páginas:");
-        jPanel1.add(labelNumberOfPages, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, 30));
+        labelNumberOfComponents.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelNumberOfComponents.setText("Páginas");
+        jPanel1.add(labelNumberOfComponents, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, 30));
 
         spinnerSupplierPrice.setModel(new javax.swing.SpinnerNumberModel(1.0d, 1.0d, null, 1.0d));
         jPanel1.add(spinnerSupplierPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 80, 30));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel8.setText("Preço do fornecedor (un.):");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 30));
+        labelSupplierPrice.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelSupplierPrice.setText("Preço do fornecedor (un.):");
+        jPanel1.add(labelSupplierPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 30));
 
         spinnerPublicationYear.setModel(new javax.swing.SpinnerNumberModel(2000, null, 2025, 1));
         jPanel1.add(spinnerPublicationYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 80, 30));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel9.setText("Ano Lançamento:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+        labelPublicationYear.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelPublicationYear.setText("Ano Lançamento:");
+        jPanel1.add(labelPublicationYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
-        spinnerNumberOfPages.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
-        jPanel1.add(spinnerNumberOfPages, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 80, 30));
+        spinnerNumberOfComponents.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        jPanel1.add(spinnerNumberOfComponents, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 80, 30));
 
         comboItemType.setBackground(new java.awt.Color(0, 153, 204));
         comboItemType.setForeground(new java.awt.Color(255, 255, 255));
@@ -241,6 +241,28 @@ public class MenuScreen extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addContainerGap(27, Short.MAX_VALUE))
         );
+
+        jMenu3.setText("Options");
+
+        menuItemStock.setText("Stock");
+        menuItemStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemStockActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuItemStock);
+
+        menuItemSettings.setText("Settings");
+        menuItemSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSettingsActionPerformed(evt);
+            }
+        });
+        jMenu3.add(menuItemSettings);
+
+        jMenuBar2.add(jMenu3);
+
+        setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -348,7 +370,7 @@ public class MenuScreen extends javax.swing.JDialog {
                         (int) spinnerPublicationYear.getValue(),
                         (ItemType) comboItemType.getSelectedItem(),
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
-                        (int) spinnerNumberOfPages.getValue(),
+                        (int) spinnerNumberOfComponents.getValue(),
                         (LiteraryGenre) comboGenre.getSelectedItem(),
                         fieldContributor.getText()
                 );
@@ -359,7 +381,7 @@ public class MenuScreen extends javax.swing.JDialog {
                         (int) spinnerPublicationYear.getValue(),
                         ItemType.QUADRINHOS,
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
-                        (int) spinnerNumberOfPages.getValue(),
+                        (int) spinnerNumberOfComponents.getValue(),
                         (LiteraryGenre) comboGenre.getSelectedItem(),
                         fieldContributor.getText()
                 );
@@ -371,7 +393,8 @@ public class MenuScreen extends javax.swing.JDialog {
                         (int) spinnerPublicationYear.getValue(),
                         (ItemType) comboItemType.getSelectedItem(),
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
-                        fieldContributor.getText()
+                        fieldContributor.getText(),
+                        (int) spinnerNumberOfComponents.getValue()
                 );
             case ItemType.REVISTA ->
                 unregisteredItem = new Magazine(fieldTitle.getText(),
@@ -379,10 +402,12 @@ public class MenuScreen extends javax.swing.JDialog {
                         (int) spinnerPublicationYear.getValue(),
                         (ItemType) comboItemType.getSelectedItem(),
                         ((Number) spinnerSupplierPrice.getValue()).doubleValue(),
-                        fieldContributor.getText()
+                        fieldContributor.getText(),
+                        (int) spinnerNumberOfComponents.getValue()
                 );
             default ->
-                unregisteredItem = new None(fieldTitle.getText(), ((Number) spinnerSupplierPrice.getValue()).doubleValue());
+                unregisteredItem = new None(fieldTitle.getText(),
+                        ((Number) spinnerSupplierPrice.getValue()).doubleValue());
         }
 
         try {
@@ -397,7 +422,7 @@ public class MenuScreen extends javax.swing.JDialog {
             return;
         }
 
-        Utils.clearFields(fieldTitle, fieldPublisher, fieldContributor, comboItemType, spinnerPublicationYear, spinnerNumberOfPages, spinnerSupplierPrice);
+        Utils.clearFields(fieldTitle, fieldPublisher, fieldContributor, comboItemType, spinnerPublicationYear, spinnerNumberOfComponents, spinnerSupplierPrice);
     }//GEN-LAST:event_buttonRegisterItemActionPerformed
 
     private void comboItemTypeAncestorResized(java.awt.event.HierarchyEvent evt) {//GEN-FIRST:event_comboItemTypeAncestorResized
@@ -405,74 +430,67 @@ public class MenuScreen extends javax.swing.JDialog {
     }//GEN-LAST:event_comboItemTypeAncestorResized
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        comboGenre.setEnabled(false);
+        labelGenre.setEnabled(false);
 
         DefaultComboBoxModel cbm = new DefaultComboBoxModel(ItemType.values());
         comboItemType.setModel(cbm);
 
-        labelGenre.setVisible(showGenre);
-        comboGenre.setVisible(showGenre);
-
         labelContributor.setText("Manch. :");
-
-        labelNumberOfPages.setVisible(showPages);
-        spinnerNumberOfPages.setVisible(showPages);
     }//GEN-LAST:event_formWindowOpened
 
     private void comboItemTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboItemTypeActionPerformed
-        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
-
         ItemType selectedType = (ItemType) comboItemType.getSelectedItem();
 
-        boolean isNone = false;
+        boolean isNone = selectedType.equals(ItemType.NONE) ? true : false;
+        isMagazine = selectedType == ItemType.REVISTA;
+
+        DefaultComboBoxModel cbm;
 
         switch (selectedType) {
             case LIVRO, QUADRINHOS -> {
                 cbm = new DefaultComboBoxModel(LiteraryGenre.values());
-                showGenre = true;
-                showPages = true;
 
                 labelPublisher.setText("Editora:");
-
-                if (selectedType == ItemType.LIVRO) {
-                    labelContributor.setText("Autor:");
-                } else {
-                    labelContributor.setText("Ilustr. :");
-                }
+                labelContributor.setText(selectedType == ItemType.LIVRO ? "Autor:" : "Ilustr. :");
+                labelNumberOfComponents.setText("Páginas");
             }
             case CD -> {
                 cbm = new DefaultComboBoxModel(MusicalGenre.values());
-                labelContributor.setText("Artista:");
-                labelPublisher.setText("Prod:");
 
-                showGenre = true;
-                showPages = false;
+                labelPublisher.setText("Prod:");
+                labelContributor.setText("Artista:");
+                labelNumberOfComponents.setText("Faixas");
             }
             case REVISTA -> {
+                cbm = new DefaultComboBoxModel();
+                labelNumberOfComponents.setText("Páginas");
                 labelContributor.setText("Manch.:");
-
-                showGenre = false;
-                showPages = true;
             }
             default -> {
                 cbm = new DefaultComboBoxModel();
-                showGenre = false;
-                showPages = false;
-
                 isNone = true;
             }
         }
 
-        labelGenre.setVisible(showGenre);
-        comboGenre.setVisible(showGenre);
-
         comboGenre.setModel(cbm);
 
-        labelNumberOfPages.setVisible(showPages);
-        spinnerNumberOfPages.setVisible(showPages);
+        boolean enableFields = !isNone;
+        boolean enableGenre = enableFields && !isMagazine;
 
-        fieldPublisher.setEnabled(!isNone);
-        fieldContributor.setEnabled(!isNone);
-        spinnerPublicationYear.setEnabled(!isNone);
+        comboGenre.setEnabled(enableGenre);
+        labelGenre.setEnabled(enableGenre);
+
+        fieldPublisher.setEnabled(enableFields);
+        fieldContributor.setEnabled(enableFields);
+        labelPublisher.setEnabled(enableFields);
+        labelContributor.setEnabled(enableFields);
+
+        spinnerPublicationYear.setEnabled(enableFields);
+        spinnerNumberOfComponents.setEnabled(enableFields);
+        labelNumberOfComponents.setEnabled(enableFields);
+        labelPublicationYear.setEnabled(enableFields);
+
     }//GEN-LAST:event_comboItemTypeActionPerformed
 
     private void buttonSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsActionPerformed
@@ -484,6 +502,18 @@ public class MenuScreen extends javax.swing.JDialog {
     private void fieldTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTitleActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldTitleActionPerformed
+
+    private void menuItemStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemStockActionPerformed
+        StockScreen stockScreen = new StockScreen(MenuScreen.this, true);
+
+        stockScreen.setVisible(true);
+    }//GEN-LAST:event_menuItemStockActionPerformed
+
+    private void menuItemSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSettingsActionPerformed
+        SettingsScreen settingsScreen = new SettingsScreen(MenuScreen.this, true);
+
+        settingsScreen.setVisible(true);
+    }//GEN-LAST:event_menuItemSettingsActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -531,18 +561,22 @@ public class MenuScreen extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelContributor;
     private javax.swing.JLabel labelGenre;
     private javax.swing.JLabel labelItemType;
-    private javax.swing.JLabel labelNumberOfPages;
+    private javax.swing.JLabel labelNumberOfComponents;
+    private javax.swing.JLabel labelPublicationYear;
     private javax.swing.JLabel labelPublisher;
+    private javax.swing.JLabel labelSupplierPrice;
     private javax.swing.JLabel labelTitle;
-    private javax.swing.JSpinner spinnerNumberOfPages;
+    private javax.swing.JMenuItem menuItemSettings;
+    private javax.swing.JMenuItem menuItemStock;
+    private javax.swing.JSpinner spinnerNumberOfComponents;
     private javax.swing.JSpinner spinnerPublicationYear;
     private javax.swing.JSpinner spinnerSupplierPrice;
     // End of variables declaration//GEN-END:variables

@@ -41,14 +41,17 @@ public class StockScreen extends javax.swing.JDialog {
         comboFilter = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         buttonDelete = new javax.swing.JButton();
+        labelNumberOfSearchResults = new javax.swing.JLabel();
+        buttonSearch1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("ESTOQUE DE ITEMS");
-        setMaximumSize(new java.awt.Dimension(1250, 625));
-        setMinimumSize(new java.awt.Dimension(1250, 625));
+        setMaximumSize(new java.awt.Dimension(1360, 625));
+        setMinimumSize(new java.awt.Dimension(1360, 625));
         setModal(true);
+        setPreferredSize(new java.awt.Dimension(1360, 625));
         setResizable(false);
-        setSize(new java.awt.Dimension(1250, 625));
+        setSize(new java.awt.Dimension(1360, 625));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -61,14 +64,14 @@ public class StockScreen extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Título", "Editora", "Gênero", "Autor/Manchete", "Ano", "Tipo", "P. Fornecedor", "M. Lucro", "P. de Venda", "Lucro p/ unidade"
+                "ID", "Título", "Editora", "Gênero", "Pág. / Faixas", "Autor/Manchete", "Ano", "Tipo", "P. Fornecedor", "M. Lucro", "P. de Venda", "Lucro p/ unidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -95,14 +98,16 @@ public class StockScreen extends javax.swing.JDialog {
             tableRegistereds.getColumnModel().getColumn(3).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(3).setPreferredWidth(50);
             tableRegistereds.getColumnModel().getColumn(4).setResizable(false);
-            tableRegistereds.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tableRegistereds.getColumnModel().getColumn(4).setPreferredWidth(60);
             tableRegistereds.getColumnModel().getColumn(5).setResizable(false);
-            tableRegistereds.getColumnModel().getColumn(5).setPreferredWidth(40);
+            tableRegistereds.getColumnModel().getColumn(5).setPreferredWidth(150);
             tableRegistereds.getColumnModel().getColumn(6).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(6).setPreferredWidth(40);
             tableRegistereds.getColumnModel().getColumn(7).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(8).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(9).setResizable(false);
             tableRegistereds.getColumnModel().getColumn(10).setResizable(false);
+            tableRegistereds.getColumnModel().getColumn(11).setResizable(false);
         }
 
         fieldSearch.setMaximumSize(new java.awt.Dimension(350, 35));
@@ -142,6 +147,23 @@ public class StockScreen extends javax.swing.JDialog {
             }
         });
 
+        labelNumberOfSearchResults.setFont(new java.awt.Font("Segoe UI Semibold", 0, 16)); // NOI18N
+
+        buttonSearch1.setBackground(new java.awt.Color(0, 153, 204));
+        buttonSearch1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonSearch1.setForeground(new java.awt.Color(255, 255, 255));
+        buttonSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reload.png"))); // NOI18N
+        buttonSearch1.setToolTipText("Recarregar");
+        buttonSearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonSearch1.setMaximumSize(new java.awt.Dimension(36, 36));
+        buttonSearch1.setMinimumSize(new java.awt.Dimension(36, 36));
+        buttonSearch1.setPreferredSize(new java.awt.Dimension(36, 36));
+        buttonSearch1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearch1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,10 +178,14 @@ public class StockScreen extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSearch1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSearch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonDelete)
-                        .addGap(0, 559, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(labelNumberOfSearchResults, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 139, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -167,13 +193,16 @@ public class StockScreen extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(comboFilter, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(comboFilter)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(fieldSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(labelNumberOfSearchResults, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonSearch1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                 .addContainerGap())
@@ -184,6 +213,20 @@ public class StockScreen extends javax.swing.JDialog {
 
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         Utils.searchItemsOnTable(tableRegistereds, comboFilter.getSelectedItem().toString(), fieldSearch.getText().trim().toUpperCase());
+
+        if (fieldSearch.getText().trim().equals("")) {
+            labelNumberOfSearchResults.setText("");
+            return;
+        }
+
+        int rowCount = tableRegistereds.getRowCount();
+
+        if (rowCount <= 0) {
+            JOptionPane.showMessageDialog(null, "Nenhum resultado para a pesquisa.", "SEM RESULTADOS!", JOptionPane.ERROR_MESSAGE);
+        }
+
+        labelNumberOfSearchResults.setText("Número de resultados encontrados: " + rowCount);
+
     }//GEN-LAST:event_buttonSearchActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -220,6 +263,16 @@ public class StockScreen extends javax.swing.JDialog {
     private void comboFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFilterActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboFilterActionPerformed
+
+    private void buttonSearch1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearch1ActionPerformed
+
+        fieldSearch.setText("");
+
+        Utils.searchItemsOnTable(tableRegistereds, comboFilter.getSelectedItem().toString(), fieldSearch.getText().trim().toUpperCase());
+
+        labelNumberOfSearchResults.setText("Tabela recarregada.");
+
+    }//GEN-LAST:event_buttonSearch1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,10 +319,12 @@ public class StockScreen extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDelete;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JButton buttonSearch1;
     private javax.swing.JComboBox<String> comboFilter;
     private javax.swing.JTextField fieldSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelNumberOfSearchResults;
     private javax.swing.JTable tableRegistereds;
     // End of variables declaration//GEN-END:variables
 }
