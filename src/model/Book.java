@@ -28,7 +28,7 @@ public class Book extends Literature {
     }
 
     public void setContributor(String author) {
-        this.author = author.trim().toUpperCase();
+        this.author = author.trim().isEmpty() ? "SEM AUTOR" : author.trim().toUpperCase();
     }
 
     //toString

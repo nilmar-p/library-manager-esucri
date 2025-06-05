@@ -24,7 +24,7 @@ public class Comics extends Literature {
     }
 
     public void setContributor(String illustrator) {
-        this.illustrator = illustrator.trim().toUpperCase();
+        this.illustrator = illustrator.trim().isEmpty() ? "SEM ILUSTRADOR" : illustrator.trim().toUpperCase();
     }
 
     //toString

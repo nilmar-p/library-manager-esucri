@@ -38,7 +38,7 @@ public class CD extends Item {
 
     //
     public void setContributor(String artist) {
-        this.artist = artist.trim().toUpperCase();
+        this.artist = artist.trim().isEmpty() ? "SEM ARTISTA" : artist.trim().toUpperCase();
     }
 
     public void setGenre(MusicalGenre genre) {

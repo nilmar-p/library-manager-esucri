@@ -29,7 +29,7 @@ public final class Magazine extends Item {    //(revista não é literatura, n t
 
     //
     public void setContributor(String coverFeature) {
-        this.coverFeature = coverFeature.trim().toUpperCase();
+        this.coverFeature = coverFeature.trim().isEmpty() ? "SEM MANCHETE" : coverFeature.trim().toUpperCase();
     }
 
     public void setNumberOfPages(int numberOfPages) {
